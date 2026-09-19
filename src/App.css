@@ -1,0 +1,405 @@
+:root {
+  --bg: #f4f2fc;
+  --bg-soft: #ffffff;
+  --bg-alt: #e9e5fb;
+  --text: #4b5568;
+  --text-h: #10182a;
+  --border: #e0dbf5;
+  --accent: #4f46e5;
+  --accent-2: #7c7ff2;
+  --accent-bg: #eef0ff;
+  --accent-border: #d7d9fb;
+  --social-bg: #efecfa;
+  --shadow: 0 10px 30px rgba(79, 70, 229, 0.08);
+  --shadow-lg: 0 20px 45px rgba(79, 70, 229, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(180deg, #ece7fb 0%, #f4f2fc 320px, #f4f2fc 100%);
+  color: var(--text);
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(244, 242, 252, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-h);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: color 0.25s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 20px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    gap: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-links li {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* ---------- Hero ---------- */
+#hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  padding: 88px 48px 96px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: '';
+  position: absolute;
+  top: -180px;
+  right: -160px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 127, 242, 0.16), rgba(124, 127, 242, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  max-width: 540px;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+#hero h1 {
+  font-size: clamp(2rem, 4.2vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-h);
+  margin: 0 0 16px;
+}
+
+.tagline {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 32px;
+  max-width: 460px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1.5px solid transparent;
+  display: inline-block;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+}
+
+.btn.secondary {
+  background: #fff;
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---------- Hero image / profile picture ----------
+   This is the key fix: the <img> alone has no size limit,
+   so it rendered at its native pixel dimensions. Wrapping
+   it in a fixed-size circular frame is what controls that. */
+.hero-image-wrap {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  padding: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-pic {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 4px solid #fff;
+}
+
+@media (max-width: 900px) {
+  #hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 56px 24px 64px;
+    gap: 40px;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .tagline {
+    max-width: 100%;
+  }
+  .cta-buttons {
+    justify-content: center;
+  }
+  .hero-image-wrap {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ---------- Shared section styling ---------- */
+section {
+  padding: 72px 48px;
+  border-top: 1px solid var(--border);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+section:nth-of-type(even) {
+  background: var(--bg-alt);
+  max-width: 100%;
+}
+
+section:nth-of-type(even) > * {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section h2 {
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+  margin: 0 0 20px;
+}
+
+#about p {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 700px;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 48px 24px;
+  }
+}
+
+/* ---------- Skills ---------- */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.skill-badge {
+  background: var(--social-bg);
+  color: var(--text-h);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+
+.skill-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+/* ---------- Projects ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: left;
+  background: var(--bg-soft);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-border);
+}
+
+.project-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: var(--text-h);
+}
+
+.project-card p {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+.tech-tag {
+  font-size: 11.5px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.project-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Contact ---------- */
+.contact-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.contact-links a {
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  padding: 10px 20px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.contact-links a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  color: var(--accent);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 28px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text);
+  background: var(--bg-alt);
+}
