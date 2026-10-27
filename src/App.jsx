@@ -2,7 +2,7 @@ import { useState } from 'react'
 import profilePic from './assets/profile.png'
 import './App.css'
 
-// Project Data
+// Project Data: one object per project. Add a new object here to add a new card.
 const projects = [
   {
     id: 'company-website',
@@ -15,7 +15,7 @@ const projects = [
       'Responsive design across mobile, tablet, and desktop viewports'
     ],
     tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-    link: 'https://github.com/Ben-agalisi/the-company-website-',
+    path: 'https://github.com/Ben-agalisi/the-company-website-',
   },
   {
     id: 'earthguard-ai',
@@ -28,7 +28,7 @@ const projects = [
       'Automated spatial data preprocessing pipeline in Python'
     ],
     tech: ['Python', 'Machine Learning', 'Data Analysis'],
-    link: 'https://github.com/Ben-agalisi/EARTH-GUARD-AI-SIMULATION'
+    path: 'https://github.com/Ben-agalisi/EARTH-GUARD-AI-SIMULATION',
   },
   {
     id: 'gbcs-system',
@@ -41,7 +41,7 @@ const projects = [
       'Optimized backend queries for high-performance record retrieval'
     ],
     tech: ['Python', 'HTML/CSS', 'MySQL', 'Web API'],
-    link: 'https://github.com/Ben-agalisi/GBCS_Management_System',
+    path: 'https://github.com/Ben-agalisi/GBCS_Management_System',
   },
 ]
 
@@ -49,40 +49,53 @@ const projects = [
 const skillCategories = [
   {
     name: 'Languages',
-    skills: ['C++', 'C', 'Python', 'JavaScript (ES6+)']
+    skills: ['C++', 'C', 'Python', 'JavaScript']
   },
   {
     name: 'Frontend',
-    skills: ['React', 'HTML5 / CSS3', 'Tailwind CSS', 'Responsive Design']
+    skills: ['React', 'HTML5 / CSS5', 'Tailwind CSS', 'Responsive Design']
   },
   {
     name: 'Backend & DB',
-    skills: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'REST APIs']
+    skills: ['Node.js', 'Django', 'MySQL', 'REST APIs']
   },
   {
     name: 'Tools & Core',
-    skills: ['Git / GitHub', 'Data Structures', 'Algorithms', 'System Logic']
+    skills: ['Git / GitHub', 'Robotics', 'Algorithms', 'System Logic']
   }
 ]
 
+// Certificates: put each file in public/certificates/ and add one object here
+const certificates = [
+  {
+    id: 'cert-1',
+    title: 'Certificate Title 1',
+    issuer: 'Issuing Organization',
+    year: '2026',
+    file: '/certificates/certificate-1.pdf',
+  },
+  {
+    id: 'cert-2',
+    title: 'Certificate Title 2',
+    issuer: 'Issuing Organization',
+    year: '2026',
+    file: '/certificates/certificate-2.pdf',
+  },
+]
+
+// CV: put your file in public/cv/ with exactly this name
+const cvFile = '/cv/Benjamin-Agalisi-CV.pdf'
+
 export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('All')
-  const [copied, setCopied] = useState(false)
-  
+
   // State for your profile image (defaults to imported profilePic)
   const [profileImg, setProfileImg] = useState(profilePic)
 
   // Recruiter contact details
-  const phoneNumber = '+233534579765' 
-  const whatsappNumber = '233534579765' 
+  const phoneNumber = '+233534579765'
+  const whatsappNumber = '233534579765'
   const emailAddress = 'benagalisi@gmail.com'
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(emailAddress)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   // Local browser photo preview updater
   const handleImageUpload = (e) => {
@@ -93,48 +106,24 @@ export default function App() {
     }
   }
 
-  const filteredProjects = activeCategory === 'All' 
-    ? projects 
+  const filteredProjects = activeCategory === 'All'
+    ? projects
     : projects.filter(p => p.category === activeCategory)
 
   return (
     <div className="app-container">
-      {/* Top Navbar */}
-      <nav className="navbar">
-        <div className="nav-brand">
-          <span className="logo-dot"></span>
-          <span className="logo-text">Agalisi Benjamin</span>
-        </div>
-
-        <button 
-          className="menu-toggle" 
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation"
-        >
-          {menuOpen ? '✕' : '☰'}
-        </button>
-
-        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
-          <li><a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a></li>
-          <li><a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a></li>
-          <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
-          
-          <li className="nav-actions">
-            <a href={`tel:${phoneNumber}`} className="nav-btn call-btn">
-              📞 Call
-            </a>
-            <a 
-              href={`https://wa.me/${whatsappNumber}`} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="nav-btn wa-btn"
-            >
-              💬 WhatsApp
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {/* Top Contact Buttons */}
+      <div className="top-actions">
+        <a href={`tel:${phoneNumber}`} className="btn btn-call">
+          Call Direct
+        </a>
+        <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="btn btn-wa">
+          WhatsApp Me
+        </a>
+        <a href={`mailto:${emailAddress}`} className="btn btn-secondary">
+          Send Email
+        </a>
+      </div>
 
       {/* Hero Section */}
       <section id="hero" className="hero-section">
@@ -143,16 +132,17 @@ export default function App() {
           <div className="hero-img-col">
             <div className="profile-frame">
               {/* === THIS IS WHERE YOUR PICTURE LOADS === */}
-              <img 
-                src={profileImg} 
-                alt="Benjamin Agalisi" 
-                className="profile-img" 
+              <img
+                src={profileImg}
+                alt="Benjamin Agalisi"
+                className="profile-img"
               />
               <label className="photo-upload-badge" title="Test custom photo">
-                
                 <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
               </label>
             </div>
+            <h1 className="hero-title">Benjamin Agalisi</h1>
+            <span className="eyebrow">Full-Stack Developer & Computer Engineering Student</span>
             <div className="status-badge">
               <span className="status-dot"></span> Available for Hire
             </div>
@@ -160,24 +150,13 @@ export default function App() {
 
           {/* Hero Content Column */}
           <div className="hero-text-col">
-            <span className="eyebrow">Computer Engineering Student & Full-Stack Developer</span>
-            <h1 className="hero-title">Benjamin Agalisi</h1>
             <p className="hero-tagline">
               Building scalable web systems, data pipelines, and algorithms. High-performance software engineering focused on clean architecture and measurable impact.
             </p>
 
-            {/* Direct Quick Actions */}
+            {/* Main Action */}
             <div className="action-row">
               <a href="#projects" className="btn btn-primary">View Projects</a>
-              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="btn btn-wa">
-                WhatsApp Me
-              </a>
-              <a href={`tel:${phoneNumber}`} className="btn btn-call">
-                Call Direct
-              </a>
-              <button onClick={handleCopyEmail} className="btn btn-secondary">
-                {copied ? '✓ Email Copied' : 'Copy Email'}
-              </button>
             </div>
 
             {/* Recruiter Metrics Bar */}
@@ -185,10 +164,6 @@ export default function App() {
               <div className="stat-item">
                 <span className="stat-value">C++ / React / Python</span>
                 <span className="stat-label">Core Tech Stack</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-value">Final Year Student</span>
-                <span className="stat-label">Computer Engineering</span>
               </div>
               <div className="stat-item">
                 <span className="stat-value">Immediate</span>
@@ -204,7 +179,7 @@ export default function App() {
         <h2 className="section-title">About Me</h2>
         <div className="about-card">
           <p className="about-text">
-            Analytical Computer Engineering student with a strong foundation in high-level computer science fundamentals, algorithm efficiency, and full-stack implementation. Passionate about engineering production-grade web systems and AI-assisted data tools. Experienced with key languages including <strong>C++, React, Node.js, and Python</strong> within collaborative and fast-paced technical environments.
+             Computer Engineering, who is passionate about software development and AI. Passionate about engineering production-grade web systems and believes in learning . learnt languages including <strong>C++, React, Node.js, and Python</strong> within collaborative and fast-paced technical environments.
           </p>
         </div>
       </section>
@@ -243,9 +218,10 @@ export default function App() {
           </div>
         </div>
 
+        {/* The card is written ONCE here and reused for every project */}
         <div className="projects-grid">
           {filteredProjects.map((project) => (
-            <div className="project-card" key={project.id}>
+            <div className="project-card" key={project.path}>
               <div className="project-top">
                 <span className="project-category">{project.category}</span>
                 <h3 className="project-title">{project.title}</h3>
@@ -267,12 +243,49 @@ export default function App() {
                     <span className="tech-tag" key={t}>{t}</span>
                   ))}
                 </div>
-                <a href={project.link} target="_blank" rel="noreferrer" className="project-link">
+                <a href={project.path} target="_blank" rel="noreferrer" className="project-link">
                   View Source Code →
                 </a>
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Certificates Section */}
+      <section id="certificates" className="section">
+        <h2 className="section-title">Certificates</h2>
+        <div className="cert-grid">
+          {certificates.map((cert) => (
+            <div className="cert-card" key={cert.id}>
+              <div>
+                <span className="cert-year">{cert.year}</span>
+                <h3 className="cert-title">{cert.title}</h3>
+                <p className="cert-issuer">{cert.issuer}</p>
+              </div>
+              <a href={cert.file} target="_blank" rel="noreferrer" className="project-link">
+                View Certificate →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CV Section */}
+      <section id="cv" className="section">
+        <h2 className="section-title">Curriculum Vitae</h2>
+        <div className="cv-card">
+          <p className="cv-text">
+            View my CV online or download a copy to share with your hiring team.
+          </p>
+          <div className="cv-actions">
+            <a href={cvFile} target="_blank" rel="noreferrer" className="btn btn-primary">
+              View CV
+            </a>
+            <a href={cvFile} download className="btn btn-secondary">
+              Download CV
+            </a>
+          </div>
         </div>
       </section>
 
@@ -330,7 +343,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Benjamin Agalisi. Built with React.</p>
+        <p>© {new Date().getFullYear()} Benjamin Agalisi. Delivers best  services</p>
       </footer>
     </div>
   )
