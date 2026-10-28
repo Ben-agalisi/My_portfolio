@@ -69,18 +69,12 @@ const skillCategories = [
 const certificates = [
   {
     id: 'cert-1',
-    title: 'Certificate Title 1',
-    issuer: 'Issuing Organization',
+    title: 'SOFTWARE DEVELOPMENT CERTIFICATE',
+    issuer: 'ERA AXIS',
     year: '2026',
     file: '/certificates/certificate-1.pdf',
   },
-  {
-    id: 'cert-2',
-    title: 'Certificate Title 2',
-    issuer: 'Issuing Organization',
-    year: '2026',
-    file: '/certificates/certificate-2.pdf',
-  },
+  
 ]
 
 // CV: put your file in public/cv/ with exactly this name
